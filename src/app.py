@@ -15,7 +15,7 @@ import io
 import base64
 
 
-df = pd.read_csv('sheet.csv', encoding="utf-8", sep=',', index_col=0)
+df = pd.read_csv('emails.csv', encoding="utf-8", sep=',', index_col=0)
 df['is_contacted'] = False
 
 center_lat = df.Latitude.mean()
@@ -150,8 +150,7 @@ def update_df(contents, filename):
             df_new = pd.read_csv(io.StringIO(
                 decoded.decode('utf-8')), sep=',', index_col=0)
             global df
-            df = pd.read_csv('sheet.csv', encoding="utf-8",
-                             sep=',', index_col=0)
+            df = pd.read_csv('emails.csv', encoding="utf-8", sep=',', index_col=0)
             df['is_contacted'] = False
             df.update(df_new)
         except Exception as e:
@@ -176,3 +175,7 @@ def display_data(selectedData):
     if selectedData is None:
         return "Not Selection"
     return json.dumps(selectedData, indent=2)
+
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
